@@ -1,0 +1,33 @@
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+
+{
+    "username": "jim",
+    "password": "123456"
+}
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+
+{
+    "username": "jest",
+    "password": "123456"
+}
+
+
+### 
+POST http://localhost:5000/api/post
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2Mjc4MjgxNjY1NTJmNzllYjk0NzU5NzEiLCJpYXQiOjE2NTIwNDE3NTB9.UJfO5MDHFQm6zEfOeZ_-qTKHcrFNaGKvPcriheCy2gA
+
+
+{
+    "title" :"JAVA",
+    "description": "java",
+    "url": "java.com",
+    "status": "LEARNING"
+}
+
