@@ -25,9 +25,25 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2Mjc4M
 
 
 {
-    "title" :"JAVA",
-    "description": "java",
+    "title" :"JAVA3",
+    "description": "java3",
     "url": "java.com",
     "status": "LEARNING"
 }
 
+### 
+GET http://localhost:5000/api/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2Mjc4MjgxNjY1NTJmNzllYjk0NzU5NzEiLCJpYXQiOjE2NTIwNDE3NTB9.UJfO5MDHFQm6zEfOeZ_-qTKHcrFNaGKvPcriheCy2gA
+
+
+### 
+PUT http://localhost:5000/api/post/627d5c64615243cdbac165a9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2Mjc4MjgxNjY1NTJmNzllYjk0NzU5NzEiLCJpYXQiOjE2NTIwNDE3NTB9.UJfO5MDHFQm6zEfOeZ_-qTKHcrFNaGKvPcriheCy2gA
+
+{
+    "title": "Vue",
+    "description": "VUEEE",
+    "url" : "vue.org",
+    "status" : "LEARNING"
+}
