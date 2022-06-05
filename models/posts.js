@@ -10,7 +10,7 @@ const PostSchema = new Schema({
         type : String,
 
     },
-    url : {
+    img : {
         type : String
     },
     status : {

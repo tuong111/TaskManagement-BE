@@ -24,4 +24,6 @@ router.put('/:id', verifyToken, PostController.updatePost)
 // @access Private
 
 router.delete('/:id', verifyToken, PostController.deletePost)
+
+
 module.exports =  router

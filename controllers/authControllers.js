@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user')
 
+let refreshTokens = [];
 const authController = {
     registerUser : async (req,res) => {
         const {username, password} = req.body
@@ -98,7 +99,7 @@ const authController = {
             const accessToken = authController.generateAccessToken(user)
             // Refresh Token 
             const refreshToken =  authController.generateRefreshToken(user)
-
+            refreshTokens.push(refreshToken)
             res.cookie("refreshToken", refreshToken, {
                 httpOnly : true,
                 secure : false,
@@ -123,14 +124,21 @@ const authController = {
     requestRefreshToken : async (req,res) => {
         // Take refresh token from user
         const refreshToken = req.cookies.refreshToken
+        if (!refreshTokens.includes(refreshToken)) {
+            return res.status(403).json('Refresh Token is not valid')
+        }
         if (!refreshToken) return res.status(401).json("You're not authenticated")
         jwt.verify(refreshToken, process.env.JWT_REFRESH_KEY, (err,user)=> {
             if (err) {
                 console.log(err)
             }
+
+            refreshTokens = refreshTokens.filter((token)=> token !== refreshToken)
+
             // Create new accress token , rf token
             const newAccessToken = authController.generateAccessToken(user);
             const newRfToken = authController.generateRefreshToken(user)
+
             res.cookie("refreshToken", newRfToken, {
                 httpOnly : true,
                 secure : false,
@@ -142,7 +150,13 @@ const authController = {
             })
         })
 
+    },
+    userLogout : async (req,res)=> {
+        res.clearCookie('refreshToken')
+        refreshTokens = refreshTokens.filter((token) => token !== req.cookies.refreshToken)
+        res.status(200).json('Logged out !')
     }
+
 }
 
 //STORE TOKEN :
