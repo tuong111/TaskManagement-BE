@@ -5,17 +5,18 @@ const UserSchema = new Schema({
     username : {
         type: String,
         required: true,
-        unique: true
+        unique : true
     },
     password : {
         type: String,
-        required: true,
+        required: true
     },
-    createAt : {
-        type : Date,
-        default: Date.now()
-    }
-})
+    admin : {
+        type : Boolean,
+        default : false
+    },
+    
+},{timestamps : true})
 
 
 module.exports = mongoose.model('users',UserSchema)
