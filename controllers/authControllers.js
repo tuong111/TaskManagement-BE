@@ -114,6 +114,7 @@ const authController = {
             res.json({
                 success: true,
                 message:"Login successfully",
+                user,
                 accessToken
             })
         } catch (error) {
