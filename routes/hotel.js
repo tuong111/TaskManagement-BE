@@ -2,7 +2,7 @@ const express = require('express')
 const { getHotelRooms } = require('../controllers/hotelControllers')
 const HotelControllers = require('../controllers/hotelControllers')
 const {verifyToken, verifyTokenAndAdminAuth} = require('../middleware/auth')
-const router = require('./room')
+const router = express.Router()
 
 // Create : 
 router.post('/', verifyTokenAndAdminAuth, HotelControllers.createHotel)
@@ -20,6 +20,6 @@ router.get('/:id', HotelControllers.getHotel)
 router.get('/', HotelControllers.getHotels)
 router.get('/countByCity', HotelControllers.countByCity)
 router.get('/countByType', HotelControllers.countByType)
-router.get('/room/:id',getHotelRooms)
+router.get('/room/:id',HotelControllers.getHotelRooms)
 
 module.exports = router
