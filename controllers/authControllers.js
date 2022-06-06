@@ -7,13 +7,13 @@ const User = require('../models/user')
 let refreshTokens = [];
 const authController = {
     registerUser : async (req,res) => {
-        const {username, password} = req.body
+        const {username, email ,country, city,phone ,password} = req.body
     
         // simple validation
-        if (!username||!password) {
+        if (!username||!password || !email || !country || !city || !phone) {
             return res.status(400).json({
                 success: false,
-                message: 'Missing username or password'
+                message: 'Missing require info'
             })
         }
         try {
@@ -30,7 +30,11 @@ const authController = {
             const hashPassword = await argon2.hash(password)
             const newUser = new User({
                 username : username,
-                password : hashPassword
+                email : email,
+                password : hashPassword,
+                country : country,
+                city : city,
+                phone : phone
             })
             await newUser.save()
     
@@ -51,17 +55,17 @@ const authController = {
     generateAccessToken:  (user) => {
         return jwt.sign({
             userID : user._id,
-            admin : user.admin
+            isAdmin : user.isAdmin
         },
         process.env.ACCESS_TOKEN_SECRET,
-        {expiresIn : "30s"}
+        {expiresIn : "10m"}
         )
     },
     // GENERATE REFRESH TOKEN :
     generateRefreshToken:  (user) => {
         return jwt.sign({
             userID : user._id,
-            admin : user.admin
+            isAdmin : user.isAdmin
         },
         process.env.JWT_REFRESH_KEY,
         {expiresIn : "365d"}
@@ -145,7 +149,7 @@ const authController = {
                 path : "/",
                 sameSite : "strict"
             })
-            res.status(200),json({
+            res.status(200).json({
                 accessToken : newAccessToken
             })
         })

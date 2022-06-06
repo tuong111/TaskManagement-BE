@@ -16,6 +16,7 @@ const middlewareAuth = {
             const decoded = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET)
     
             req.userID = decoded.userID
+            req.isAdmin = decoded.isAdmin
             next()
         } catch (error) {
             console.log(error)
@@ -27,7 +28,7 @@ const middlewareAuth = {
     },
     verifyTokenAndAdminAuth : (req,res,next) => {
         middlewareAuth.verifyToken(req,res, ()=> {
-            if (req.user.id === req.params.id || req.user.admin){
+            if (req.userID === req.params.id || req.isAdmin){
                 next()
             }else {
                 res.status(403).json("You are not allowed to process this action")
