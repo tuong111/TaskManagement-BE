@@ -9,7 +9,7 @@ require('dotenv').config()
 const app = express();
 app.use(express.json());
 app.use(cookieParser())
-app.get("/",(req,res) => res.send('hello world'));
+app.get("/",(req,res) => res.send('Booking App API'));
 
 const connectDB = async () => {
     try {
